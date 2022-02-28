@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import Database from 'better-sqlite3'
-import { createAuthor, createQuote } from './setup'
 
 const db = new Database('./quotes_data.db', {
     verbose: console.log
@@ -43,6 +42,8 @@ UPDATE authors SET firstName=?, lastName=?, age=?, image=?, dead=? WHERE _id=?;
 `);
 const deleteAuthorById = db.prepare(`DELETE FROM authors WHERE _id=?;`)
 
+const createAuthor = db.prepare(`INSERT INTO authors (firstName, lastName, age, image, dead) VALUES (?,?,?,?,?);`)
+const createQuote = db.prepare(`INSERT INTO quotes (content, authorId) VALUES (?,?);`)
 
 app.get('/', function (req, res) {
     res.send(`
