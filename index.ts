@@ -9,6 +9,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+const PORT = process.env.PORT || 3001
+
 const getAllAuthours = db.prepare(`SELECT * FROM authors;`);
 const getAllQuotesId = db.prepare(`SELECT _id FROM quotes;`);
 const getQuotesById = db.prepare(`SELECT * FROM quotes WHERE _id=?;`);
@@ -254,6 +256,6 @@ app.delete('/authors/:id', (req, res) => {
     }
 })
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server runing on: http://localhost:${process.env.PORT}/`)
+app.listen(PORT, () => {
+    console.log(`Server runing on: http://localhost:${PORT}/`)
 })
